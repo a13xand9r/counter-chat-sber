@@ -7,7 +7,7 @@ export const getNumberFromMessage = (text: string) => {
     console.log(text)
     const textArr = text.split(' ')
     for (let i = 0; i < textArr.length; i++) {
-        if (!!Number(textArr[i])) return Number(textArr[i])
+        if (!!Number(textArr[i]) || Number(textArr[i]) === 0) return Number(textArr[i])
     }
 }
 

@@ -28,11 +28,11 @@ export const noMatchHandler: ScenarioHandler = async ({ req, res }) => {
 export const counterHandler: ScenarioHandler = async ({ req, res }) => {
     const keyset = req.i18n(dictionary)
     const num = getNumberFromMessage(req.message.human_normalized_text)
-
-    if (num && num > 100) {
+    console.log('num', num)
+    if (num !== undefined && num > 100) {
         res.appendBubble('Я умею считать только до 100')
         res.setPronounceText('Я умею считать только до ста')
-    } else if (num && num < 1){
+    } else if (num !== undefined && num < 1){
         res.appendBubble('Нужно число больше нуля')
         res.setPronounceText('Нужно число больше нуля')
     } else {
