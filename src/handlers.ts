@@ -1,6 +1,6 @@
 import { ScenarioHandler } from './types';
 import * as dictionary from './system.i18n'
-import { getNumberFromMessage } from './utils/utils';
+import { getNumberFromMessage, getRandomFromArray } from './utils/utils';
 require('dotenv').config()
 
 
@@ -14,6 +14,7 @@ export const runAppHandler: ScenarioHandler = ({ req, res }) => {
         from: 'одного',
         to: 'ста'
     }))
+    res.appendSuggestions([getRandomFromArray(['До 10', 'До 30', 'До 45', 'До 100', 'Досчитай до 25', 'Досчитай до 15', 'Досчитай до 5'])])
 }
 
 export const noMatchHandler: ScenarioHandler = async ({ req, res }) => {
@@ -21,6 +22,7 @@ export const noMatchHandler: ScenarioHandler = async ({ req, res }) => {
     const responseText = keyset('404')
     res.appendBubble(responseText)
     res.setPronounceText(responseText)
+    res.appendSuggestions([getRandomFromArray(['До 10', 'До 30', 'До 45', 'До 100', 'Досчитай до 25', 'Досчитай до 15', 'Досчитай до 5']), 'Хватит'])
 }
 
 export const counterHandler: ScenarioHandler = async ({ req, res }) => {
@@ -39,7 +41,8 @@ export const counterHandler: ScenarioHandler = async ({ req, res }) => {
             counter: arr.join(' ')
         }))
         res.setPronounceText(keyset('Счет', {
-            counter: arr.join(', ')
+            counter: arr.join('; ')
         }))
     }
+    res.appendSuggestions([getRandomFromArray(['До 10', 'До 30', 'До 45', 'До 100', 'Досчитай до 25', 'Досчитай до 15', 'Досчитай до 5']), 'Хватит'])
 }
