@@ -13,7 +13,7 @@ import {
     SaluteRequest
 } from '@salutejs/scenario'
 import { SaluteMemoryStorage } from '@salutejs/storage-adapter-memory'
-import { noMatchHandler, runAppHandler } from './handlers'
+import { counterHandler, noMatchHandler, runAppHandler } from './handlers'
 import model from './intents.json'
 require('dotenv').config()
 
@@ -22,6 +22,10 @@ const intents = createIntents(model.intents)
 const { intent, match } = createMatchers<ScenarioRequest, typeof intents>()
 
 const userScenario = createUserScenario<ScenarioRequest>({
+    Counter: {
+        match: req => req.message.normalized_text.includes('NUM_TOKEN'),
+        handle: counterHandler
+    }
 })
 
 const systemScenario = createSystemScenario({
@@ -30,8 +34,8 @@ const systemScenario = createSystemScenario({
 })
 
 const scenarioWalker = createScenarioWalker({
-    recognizer: new SmartAppBrainRecognizer(process.env.SMARTAPP_BRAIN_TOKEN),
-    intents,
+    // recognizer: new SmartAppBrainRecognizer(process.env.SMARTAPP_BRAIN_TOKEN),
+    // intents,
     systemScenario,
     userScenario
 })
